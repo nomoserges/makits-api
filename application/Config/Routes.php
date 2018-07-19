@@ -83,9 +83,13 @@ $routes->group('users', function($routes) {
 	$routes->add('losspass/sendemail',		'Users::getEmail');
 	$routes->add('losspass/change',			'Users::changePassword');
 	$routes->add('confirmaccount',			'Users::activeAccount');
-	$routes->add('firstsetup/picture/',		'Users::setAvatar');
 	$routes->add('firstsetup/personal/',	'Users::setPersonal');
 	$routes->add('firstsetup/job/',			'Users::setJobInformation');
+});
+
+// Route group for users
+$routes->group('locations', function($routes) {
+	$routes->add('adduserlocation',			'Locations::addUserLocation');
 });
 /**
  * --------------------------------------------------------------------

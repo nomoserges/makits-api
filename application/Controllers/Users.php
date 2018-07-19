@@ -258,7 +258,8 @@ class Users extends Controller {
     }
 
     public function setPersonal() {
-        echo 'set personal information ';
+        var_dump( $this->request->getPost() );
+        var_dump( $this->request->getFiles() );
     }
 
     public function setJobInformation() {
