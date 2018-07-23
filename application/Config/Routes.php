@@ -85,8 +85,12 @@ $routes->group('users', function($routes) {
 	$routes->add('confirmaccount',			'Users::activeAccount');
 	$routes->add('firstsetup/personal/',	'Users::setPersonal');
 	$routes->add('firstsetup/job/',			'Users::setJobInformation');
+	$routes->add('firstsetup/avatar/',		'Users::setAvatar');
 });
-
+// Route group for Avatars
+$routes->group('avatars', function($routes) {
+	$routes->add('new',			'Avatars::setAvatar');
+});
 // Route group for users
 $routes->group('locations', function($routes) {
 	$routes->add('adduserlocation',			'Locations::addUserLocation');

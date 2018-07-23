@@ -80,8 +80,8 @@ class Usersmodel extends \CodeIgniter\Model {
     public function setJob( $datas ){
         $updateQuery = "UPDATE ".$this->table
             ." SET job_title = '".$datas['job_title'].
-            "', job_description = '".$datas['job_description'].
-            "', job_tags = '".$datas['job_tags']."' "
+            "', job_description = '".$datas['job_description']."'"
+            #"', job_tags = '".$datas['job_tags']."' "
             ." WHERE userid = '".$datas['userid']."' ";
         return $this->db->query($updateQuery);
     }
@@ -111,6 +111,7 @@ class Usersmodel extends \CodeIgniter\Model {
         ."WHERE (userid = '".$credential."' OR pseudo='".$credential."' OR email='".$credential."') "
         .$addPasswordCheck
         ."AND is_activated=1 ";
+        # echo $sql;
         $query = $this->db->query($sql);
         if ( !$query ) {
             return $this->db->error();

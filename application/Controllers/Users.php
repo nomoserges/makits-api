@@ -253,17 +253,71 @@ class Users extends Controller {
         ]);
     }
 
-    public function setAvatar() {
-        echo 'set avatar ';
-    }
-
+    /**
+     * Update personal information of user
+     */
     public function setPersonal() {
-        var_dump( $this->request->getPost() );
-        var_dump( $this->request->getFiles() );
+        # var_dump( $this->request->getPost() );
+        if (! $this->validate([
+            'userid'        => "required"
+        ])) {
+            $this->status = "nok";
+            $this->message = $this->validator->listErrors();
+            $this->datas = null;
+        } else {
+            $usersModel = new Usersmodel;
+            $usersModel->setPersonal($this->request->getPost());
+
+            $this->status = "ok";
+            $this->message = "Personals informations saved";
+            $this->datas = $usersModel->findWithCredentials(
+                $this->request->getPost('userid'), 
+                false, null);
+        }
+        /*
+        var_dump($usersModel->findWithCredentials(
+            $this->request->getPost('userid'), 
+            false, null));
+            */
+        echo json_encode([
+            'status' => $this->status, 
+            'message' => $this->message, 
+            'datas' => $this->datas[0]
+        ]);
     }
 
+    /**
+     * Update activity informations of users
+     */
     public function setJobInformation() {
-        echo 'set activity ';
+        # var_dump( $this->request->getPost() );
+        if (! $this->validate([
+            'userid'            => "required"
+        ])) {
+            $this->status = "nok";
+            $this->message = $this->validator->listErrors();
+            $this->datas = null;
+        } else {
+            $usersModel = new Usersmodel;
+            $usersModel->setJob($this->request->getPost());
+
+            $this->status = "ok";
+            $this->message = "Personals informations saved";
+            $this->datas = $usersModel->findWithCredentials(
+                $this->request->getPost('userid'), 
+                false, 
+                null
+            );
+        }
+        echo json_encode([
+            'status' => $this->status, 
+            'message' => $this->message, 
+            'datas' => $this->datas[0]
+        ]);
+    }
+
+    public function setAvatar() {
+        
     }
 
     /**
