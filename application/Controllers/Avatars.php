@@ -2,6 +2,7 @@
 
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use App\Models\Usersmodel;
 use App\Models\Avatarsmodel;
 
 class Avatars extends Controller {
@@ -16,10 +17,11 @@ class Avatars extends Controller {
     }
     /* adding avatar */
     public function setAvatar() {
+        # taking content of input
         $data = json_decode(trim(file_get_contents('php://input')), true);
-        var_dump( $data );
         $avatarsModel = new Avatarsmodel;
         $theRawName = $avatarsModel->generateRawName();
+        # create the datas for the model
         $datasModel = array(
             'raw_name'      => $theRawName,
             'filename'      => $theRawName.'.'.explode(".", $data['image_name'])[1],
@@ -30,29 +32,33 @@ class Avatars extends Controller {
         # we insert before create the file on filesystem
         if ( $avatarsModel->create($datasModel) === true ) {
             # we create the file
-            file_put_contents(
+            if ( file_put_contents(
                 WRITEPATH.'uploads/'.$datasModel['filename'],
                 base64_decode($data['image_binary'])
-            );
+            ) === false ) { 
+                $this->status = "nok"; 
+                $this->message = "Error occured when transfert the file";
+                $this->datas = null;
+             } 
+            else { 
+                $usersModel = new Usersmodel();
+                $this->status = "ok"; 
+                $this->message = "Avatar saved";
+                $this->datas = $usersModel->findWithCredentials(
+                    $datasModel['userid'], false, null
+                );
+            }
         } else {
-            # code...
+            $this->status = "nok"; 
+            $this->message = "Error occured";
+            $this->datas = null;
         }
-        
-        
-        //$file = $_FILES;
-        /*
-        $this->validate([
-            'useravatar' => 'uploaded[useravatar]|max_size[useravatar,1024]'
+        # output the result
+        echo json_encode([
+            'status' => $this->status, 
+            'message' => $this->message, 
+            'datas' => $this->datas[0]
         ]);
-        echo $this->validator->listErrors();
-        */
-        /*
-        file_put_contents($data['useravatar'], base64_decode($data['image_binary']));
-        $this->validate([
-            'useravatar' => 'uploaded[useravatar]|max_size[useravatar,1024]'
-        ]);
-        echo $this->validator->listErrors();
-        */
     }
 }
 
