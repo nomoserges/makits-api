@@ -73,7 +73,7 @@
                 <div class="links">
                     <p style="color:#333;">Hello <?php echo $pseudo; ?>, welcome to our social platform for dealing and dating. To start using it, 
                     please click the link bellow to activate your account.</p>
-                    <a href="http://localhost:4200/out/setupaccount/<?php echo $token.'/'.$email; ?>">Active account</a>
+                    <a href="http://makits.epizy.com:4200/out/setupaccount/<?php echo $token.'/'.$email; ?>">Active account</a>
                 </div>
                 <div class="links" style="position:fixed;bottom:10px;">
                     <a href="#">Polycies</a>

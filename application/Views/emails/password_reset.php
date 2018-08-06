@@ -399,7 +399,7 @@
           <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td class="email-masthead">
-                <a href="https://makits.com" class="email-masthead_name">
+                <a href="http://makits.epizy.com" class="email-masthead_name">
         Makits
       </a>
               </td>
@@ -430,7 +430,7 @@
                                   <table border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                       <td>
-                                        <a href="http://localhost:4200/out/resetpassword/<?php echo $token.'/'.$email; ?>" 
+                                        <a href="http://makits.epizy.com:4200/out/resetpassword/<?php echo $token.'/'.$email; ?>" 
                                         class="button button--green" target="_blank">Reset your password</a>
                                       </td>
                                     </tr>

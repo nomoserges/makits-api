@@ -9,12 +9,15 @@ class Filters extends BaseConfig
 	public $aliases = [
 		'csrf' 	  => \App\Filters\CSRF::class,
 		'toolbar' => \App\Filters\DebugToolbar::class,
+		'cors'    => \App\Filters\Cors::class
 	];
 
 	// Always applied before every request
 	public $globals = [
 		'before' => [
 			// 'csrf'
+			'cors'
+
 		],
 		'after'  => [
 			'toolbar'

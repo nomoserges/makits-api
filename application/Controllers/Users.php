@@ -13,6 +13,11 @@ class Users extends Controller {
     // protected $helpers = ['url', 'form'];
 
     public function __constructor() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $method = $_SERVER['REQUEST_METHOD'];
+        if($method == "OPTIONS") { die(); }
+        
         parent::__constructor();
     }
 	public function index() {
@@ -89,6 +94,8 @@ class Users extends Controller {
     }
 
     public function login() {
+       
+
         // var_dump($this->request->getPost());
         $usersModel = new Usersmodel();
         # we proccess with model
